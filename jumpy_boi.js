@@ -67,13 +67,13 @@ class Player {
      // Animate the rotation if the player is in the air
      if (this.isRotating) {
         if (this.rotation < this.targetRotation) {
-          this.rotation += this.rotationSpeed; // Gradually rotate
+          this.rotation += this.rotationSpeed; 
           if (this.rotation >= this.targetRotation) {
-            this.rotation = this.targetRotation; // Ensure we don't overshoot
-            this.isRotating = false; // Stop rotating once the target rotation is reached
+            this.rotation = this.targetRotation;
+            this.isRotating = false; 
           }
         } else if (this.rotation > this.targetRotation) {
-          this.rotation -= this.rotationSpeed; // Gradually rotate backward if overshot
+          this.rotation -= this.rotationSpeed; 
           if (this.rotation <= this.targetRotation) {
             this.rotation = this.targetRotation;
             this.isRotating = false;
@@ -83,15 +83,11 @@ class Player {
   }
 
   jump() {
-    // Set the target rotation for the jump (90 degrees)
     this.targetRotation += Math.PI / 2;
-
-    // Ensure the rotation is between 0 and 360 degrees
     if (this.targetRotation >= Math.PI * 2) {
       this.targetRotation = 0;
     }
-
-    this.isRotating = true; // Start rotating when the jump happens
+    this.isRotating = true;
   }
 
 }
