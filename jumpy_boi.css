@@ -1,91 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik:wght@400;700&display=swap');
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  :root {
-    --main-bg-color: #0a0a23;
-    --section-bg-color: #ffffff;
-    --golden-yellow: #feac32;
-  }
-  
-  body {
-    background-color: var(--main-bg-color);
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-color: #0f172a;
+  --panel-color: #1e293b;
+  --accent-color: #38bdf8;
+  --accent-hover: #0ea5e9;
+  --text-color: #f8fafc;
+  --font-main: 'Rubik', sans-serif;
+  --font-fun: 'Press Start 2P', cursive;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-main);
+}
+
+.start-screen {
+  background-color: var(--panel-color);
+  width: 90%;
+  max-width: 600px;
+  margin: auto;
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 15px #38bdf880;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.main-title {
+  text-align: center;
+  font-family: var(--font-fun);
+  font-size: 2rem;
+  color: var(--accent-color);
+  margin-bottom: 20px;
+  text-shadow: 2px 2px #0c4a6e;
+}
+
+.instructions {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  color: #cbd5e1;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: var(--font-fun);
+  padding: 14px 20px;
+  font-size: 0.8rem;
+  background-color: var(--accent-color);
+  border: 2px solid var(--accent-hover);
+  color: #0f172a;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px #0ea5e9;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px #38bdf8;
+}
+
+.checkpoint-screen {
+  display: none;
+  background-color: var(--panel-color);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 10px #38bdf880;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 30%;
+  width: 90%;
+  max-width: 300px;
+  text-align: center;
+  font-family: var(--font-main);
+}
+
+
+#canvas {
+  display: none;
+}
+
+@media (min-width: 768px) {
   .start-screen {
-    background-color: var(--section-bg-color);
-    width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    border-radius: 30px;
-    padding: 20px;
-    padding-bottom: 5px;
+    width: 60%;
   }
-  
-  .main-title {
-    text-align: center;
-  }
-  
-  .instructions {
-    text-align: center;
-    font-size: 1.2rem;
-    margin: 15px;
-    line-height: 2rem;
-  }
-  
-  .btn {
-    cursor: pointer;
-    width: 100px;
-    margin: 10px;
-    color: #0a0a23;
-    font-size: 18px;
-    background-color: var(--golden-yellow);
-    background-image: linear-gradient(#fecc4c, #ffac33);
-    border-color: var(--golden-yellow);
-    border-width: 3px;
-  }
-  
-  .btn:hover {
-    background-image: linear-gradient(#ffcc4c, #f89808);
-  }
-  
-  .btn-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .checkpoint-screen {
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    text-align: center;
-    background-color: var(--section-bg-color);
-    border-radius: 20px;
-    padding: 10px;
-    display: none;
-  }
-  
-  #canvas {
-    display: none;
-  }
-  
-  @media (min-width: 768px) {
-    .start-screen {
-      width: 60%;
-      max-width: 700px;
-    }
-  
-    .checkpoint-screen {
-      max-width: 300px;
-    }
-  }
-  
+}

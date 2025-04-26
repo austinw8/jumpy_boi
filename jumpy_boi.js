@@ -168,13 +168,13 @@ const animate = () => {
   }
 
   platforms.forEach((platform) => {
+    
     const collisionDetectionRules = [
       player.position.y + player.height <= platform.position.y,
       player.position.y + player.height + player.velocity.y >= platform.position.y,
-      player.position.x >= platform.position.x - player.width / 2,
-      player.position.x <=
-        platform.position.x + platform.width - player.width / 3,
-    ];
+      player.position.x + player.width >= platform.position.x &&
+      player.position.x <= platform.position.x + platform.width
+    ];      
 
     if (collisionDetectionRules.every((rule) => rule)) {
       player.velocity.y = 0;
@@ -182,6 +182,19 @@ const animate = () => {
       player.jumpsRemaining = 2;
       return;
     }
+
+    const isRightCollision = [
+        keys.rightKey.pressed,
+        platform.position.x <= player.position.x + player.width,
+        platform.position.x + platform.width >= player.position.x,
+        player.position.y + player.height > platform.position.y,
+        player.position.y < platform.position.y + platform.height
+    ];      
+
+      if (isRightCollision.every((rule) => rule)) {
+        console.log("BLOCKING RIGHT DUE TO COLLISION");
+        player.velocity.x = 0;
+      }
 
     const platformDetectionRules = [
       player.position.x >= platform.position.x - player.width / 2,
