@@ -27,10 +27,19 @@ class Player {
     this.height = proportionalSize(40);
     this.isOnGround = false;
     this.jumpsRemaining = 2;
+    this.rotation = 0;
+    this.targetRotation = 0; 
+    this.rotationSpeed = Math.PI / 45; 
+    this.isRotating = false;
   }
   draw() {
+    ctx.save();
+    ctx.translate(this.position.x + this.width / 2, this.position.y + this.height / 2);
+    ctx.rotate(this.rotation);
     ctx.fillStyle = "#99c9ff";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+    ctx.restore();
+    // ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
   
   update() {
@@ -54,7 +63,37 @@ class Player {
     if (this.position.x >= canvas.width - this.width * 2) {
       this.position.x = canvas.width - this.width * 2;
     }
+
+     // Animate the rotation if the player is in the air
+     if (this.isRotating) {
+        if (this.rotation < this.targetRotation) {
+          this.rotation += this.rotationSpeed; // Gradually rotate
+          if (this.rotation >= this.targetRotation) {
+            this.rotation = this.targetRotation; // Ensure we don't overshoot
+            this.isRotating = false; // Stop rotating once the target rotation is reached
+          }
+        } else if (this.rotation > this.targetRotation) {
+          this.rotation -= this.rotationSpeed; // Gradually rotate backward if overshot
+          if (this.rotation <= this.targetRotation) {
+            this.rotation = this.targetRotation;
+            this.isRotating = false;
+          }
+        }
+      }
   }
+
+  jump() {
+    // Set the target rotation for the jump (90 degrees)
+    this.targetRotation += Math.PI / 2;
+
+    // Ensure the rotation is between 0 and 360 degrees
+    if (this.targetRotation >= Math.PI * 2) {
+      this.targetRotation = 0;
+    }
+
+    this.isRotating = true; // Start rotating when the jump happens
+  }
+
 }
 
 class Platform {
@@ -273,6 +312,8 @@ const movePlayer = (key, xVelocity, isPressed) => {
         player.jumpsRemaining--;
         player.isOnGround = false;
         keys.jumpKeyPressed = true;
+
+        player.jump();
       }
       break;
     case "ArrowRight":
